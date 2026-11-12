@@ -1,0 +1,44 @@
+name: Release evidence
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: release-evidence-pipeline
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v5
+        with:
+          repository: Klokesh493/sre-error-budget-control-plane
+          ref: 64726dfa10b3671bbb35bd706fa3f4ead816ac63
+          path: sre-error-budget-control-plane
+          persist-credentials: false
+      - uses: actions/checkout@v5
+        with:
+          repository: Klokesh493/aws-event-recovery-platform
+          ref: 0f857042df015dbeea387b4edb03ebd9ffb85dff
+          path: aws-event-recovery-platform
+          persist-credentials: false
+      - uses: actions/checkout@v5
+        with:
+          repository: Klokesh493/azure-ml-endpoint-release-lab
+          ref: 7d6b8f2dd943f9a1178dc6b1faabd8573830b665
+          path: azure-ml-endpoint-release-lab
+          persist-credentials: false
+      - uses: actions/checkout@v5
+        with:
+          repository: Klokesh493/cloud-oncall-evidence-agent
+          ref: 89843bfb702f0c768e455bd7725ab2ea46bbc523
+          path: cloud-oncall-evidence-agent
+          persist-credentials: false
+      - run: make verify verify-integration
+        working-directory: release-evidence-pipeline
