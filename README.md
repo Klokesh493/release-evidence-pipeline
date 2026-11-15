@@ -2,6 +2,8 @@
 
 A CI/CD release gate that combines SRE burn rate, AWS recovery drill, Azure ML artifact quality, and on-call review evidence for a candidate commit.
 
+[Skills and verification](docs/ENGINEERING_NOTES.md)
+
 ## Business problem
 
 A passing build alone cannot tell you whether a service is already burning its error budget or a model artifact differs from the one evaluated. Release decisions need evidence tied to the candidate.
